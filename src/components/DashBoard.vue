@@ -27,7 +27,7 @@
           <div class="card shadow-sm">
             <div class="card-body">
               <h3 class="card-title">Welcome, {{ user.username }}</h3>
-              <p>Your unique link: <a href="https://muda-node-server-1.onrender.com/sendmsg/{{ user.username }}" class="text-info">https://muda-node-server-1.onrender.com/sendmsg/{{ user.username }}</a></p>
+              <p>Your unique link: <span class="text-info">https://tell-me-seven.vercel.app/sendmsg/{{user.username}}</span></p>
               <hr />
               <h4>Your Messages</h4>
               <div class="alert alert-info" v-if="user.messages.length === 0">No messages yet!</div>
