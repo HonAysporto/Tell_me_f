@@ -1,48 +1,63 @@
 <template>
   <div class="container">
-    <div class="col-6 mx-auto shadow py-5 my-5 rounded">
-      <h4 class="text-secondary text-center">Register</h4>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6 shadow py-3 py-md-5 my-5 rounded">
+        <h4 class="text-secondary text-center">Register</h4>
 
-      <div v-if="errmsg" class="text-danger text-center">
-        {{ errmsg }}
+        <div v-if="errmsg" class="text-danger text-center">
+          {{ errmsg }}
+        </div>
+
+        <form class="px-3 px-md-5" @submit.prevent="submit">
+          <!-- Username Field -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              v-model="v$.username.$model"
+            />
+
+            <!-- Error Message -->
+            <div v-if="v$.username.$error">
+              <span v-if="v$.username.required.$invalid" class="text-danger">
+                {{ v$.username.required.$message }}
+              </span>
+              <span v-if="v$.username.minLength.$invalid" class="text-danger">
+                {{ v$.username.minLength.$message }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Create a password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              v-model="v$.password.$model"
+            />
+
+            <!-- Error Message -->
+            <div v-if="v$.password.$error">
+              <span v-if="v$.password.required.$invalid" class="text-danger">
+                {{ v$.password.required.$message }}
+              </span>
+            </div>
+          </div>
+
+          <button class="btn btn-outline-secondary mt-2">Create Account</button>
+        </form>
+        <p class="text-center my-2">
+          Already have an account? <span><router-link to="/signin">Sign in</router-link></span>
+        </p>
       </div>
-
-      <form class="px-5" @submit.prevent="submit">
-        <!-- Username Field -->
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" v-model="v$.username.$model" />
-
-          <!-- Error Message -->
-          <div v-if="v$.username.$error">
-            <span v-if="v$.username.required.$invalid" class="text-danger">
-              {{ v$.username.required.$message }}
-            </span>
-            <span v-if="v$.username.minLength.$invalid" class="text-danger">
-              {{ v$.username.minLength.$message }}
-            </span>
-          </div>
-        </div>
-
-        <!-- Password Field -->
-        <div class="mb-3">
-          <label for="password" class="form-label">Create a password</label>
-          <input type="password" class="form-control" id="password" v-model="v$.password.$model" />
-
-          <!-- Error Message -->
-          <div v-if="v$.password.$error">
-            <span v-if="v$.password.required.$invalid" class="text-danger">
-              {{ v$.password.required.$message }}
-            </span>
-          </div>
-        </div>
-
-        <button class="btn btn-outline-secondary mt-2">Create Account</button>
-      </form>
-      <p class="text-center my-2">Already have an account? <span><router-link to="/signin">Sign in</router-link></span></p>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { reactive } from 'vue'

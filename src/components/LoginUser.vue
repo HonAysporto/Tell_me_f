@@ -1,50 +1,66 @@
 <template>
-    <div class="container">
-      <div class="col-6 mx-auto shadow py-5 my-5 rounded">
-        <h4 class="text-secondary text-center">Account login</h4>
-  
-        <!-- <div v-if="errmsg" class="text-danger text-center">
-          {{ errmsg }}
-        </div> -->
-  
-        <form class="px-5" @submit.prevent="submit">
-          <!-- Username Field -->
-          <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" v-model="v$.username.$model" />
-  
-            <!-- Error Message -->
-            <div v-if="v$.username.$error">
-              <span v-if="v$.username.required.$invalid" class="text-danger">
-                {{ v$.username.required.$message }}
-              </span>
-              <span v-if="v$.username.minLength.$invalid" class="text-danger">
-                {{ v$.username.minLength.$message }}
-              </span>
-            </div>
-          </div>
-  
-          <!-- Password Field -->
-          <div class="mb-3">
-            <label for="password" class="form-label">Create a password</label>
-            <input type="password" class="form-control" id="password" v-model="v$.password.$model" />
-  
-            <!-- Error Message -->
-            <div v-if="v$.password.$error">
-              <span v-if="v$.password.required.$invalid" class="text-danger">
-                {{ v$.password.required.$message }}
-              </span>
-            </div>
-          </div>
-  
-          <button class="btn btn-outline-secondary mt-2">Login </button>
-        </form>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <!-- Card Wrapper -->
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <!-- Header -->
+            <h4 class="card-title text-center text-secondary mb-4">Account Login</h4>
 
-        <p class="text-center my-2">Don't have an account?  <span><router-link to="/register">Sign up</router-link>
-        </span></p>
+            <!-- Error Message -->
+            <div v-if="errmsg" class="alert alert-danger text-center">
+              {{ errmsg }}
+            </div>
+
+            <!-- Form -->
+            <form @submit.prevent="submit">
+              <!-- Username Field -->
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  v-model="v$.username.$model"
+                  :class="{ 'is-invalid': v$.username.$error }"
+                />
+                <div v-if="v$.username.$error" class="invalid-feedback">
+                  <span v-if="v$.username.required.$invalid">{{ v$.username.required.$message }}</span>
+                  <span v-if="v$.username.minLength.$invalid">{{ v$.username.minLength.$message }}</span>
+                </div>
+              </div>
+
+              <!-- Password Field -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  v-model="v$.password.$model"
+                  :class="{ 'is-invalid': v$.password.$error }"
+                />
+                <div v-if="v$.password.$error" class="invalid-feedback">
+                  <span v-if="v$.password.required.$invalid">{{ v$.password.required.$message }}</span>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-outline-secondary w-100">Login</button>
+            </form>
+
+            <!-- Sign Up Link -->
+            <p class="text-center my-2">
+              Don't have an account? <router-link to="/register">Sign up</router-link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <script setup>
   import { reactive } from 'vue'
