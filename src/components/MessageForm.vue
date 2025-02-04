@@ -84,7 +84,7 @@ const rules = {
 
 const v$ = useVuelidate(rules, userForm)
 const formattedId = route.params.id.charAt(0).toUpperCase() + route.params.id.slice(1);
-const url = `http://localhost:3000/user/sendmsg/${formattedId}`
+const url = `https://muda-node-server-1.onrender.com/user/sendmsg/${formattedId}`
 
 const submitMessage = () => {
 

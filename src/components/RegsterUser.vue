@@ -77,7 +77,7 @@ const rules = {
 
 // Vuelidate Instance
 const v$ = useVuelidate(rules, userForm)
-const url = 'http://localhost:3000/user/register'
+const url = 'https://muda-node-server-1.onrender.com/user/register'
 
 // Submit Function
 const submit = () => {

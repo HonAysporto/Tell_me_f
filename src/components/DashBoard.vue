@@ -93,7 +93,7 @@ onMounted(() => {
   const token = localStorage.getItem('authToken');
 
   if (token) {
-    axios.get('http://localhost:3000/user/dashboard', {
+    axios.get('https://muda-node-server-1.onrender.com/user/dashboard', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
