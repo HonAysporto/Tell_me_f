@@ -95,7 +95,7 @@ const submit = () => {
     loading.value = true;
 
     timeoutId.value = setTimeout(() => {
-      errmsg.value = "This is test server I didn't pay. First request might take time, please wait...";
+      errmsg.value = "This is test server, first request might take time, please wait...";
     }, 5000);
 
     axios.post(url, userForm)
