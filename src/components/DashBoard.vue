@@ -28,6 +28,7 @@
             <p>Your unique link: 
               <span class="text-info fw-bold">https://tell-me-seven.vercel.app/sendmsg/{{ user.username }}</span>
             </p>
+            <button @click="shareToWhatsApp" class="btn btn-success my-3">📲 Share on WhatsApp</button>
             <hr />
             <h4 class="mb-3">Your Messages</h4>
             <div v-if="user.messages.length === 0" class="alert alert-info text-center fw-bold py-3">
@@ -83,52 +84,14 @@ button:hover {
   color: white;
 }
 </style>
-  
-  <style scoped>
-  /* Custom Styling */
-  .dashboard-header {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .card {
-    border-radius: 10px;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .list-group-item {
-    font-size: 16px;
-    color: #495057;
-  }
-  
-  .list-group-item:hover {
-    background-color: #f1f1f1;
-  }
-  
-  button {
-    transition: all 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #f8f9fa;
-  }
-  </style>
-
 
 <script setup>
-
-let messages = []
-
-
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 const user = ref({ username: '', messages: [] });
-const router = useRouter()
+const router = useRouter();
 
 onMounted(() => {
   const token = localStorage.getItem('authToken');
@@ -150,11 +113,13 @@ onMounted(() => {
   }
 });
 
-  const logout = () => {
-      localStorage.removeItem('authToken')
-      router.push('/signin')
-  }
+const logout = () => {
+  localStorage.removeItem('authToken');
+  router.push('/signin');
+};
 
-
+const shareToWhatsApp = () => {
+  const whatsappUrl = `https://wa.me/?text=Tell%20me,%20I%20won't%20know%20you%20sent%20it.%20Here%27s%20my%20link:%20https://tell-me-seven.vercel.app/sendmsg/${user.value.username}`;
+  window.open(whatsappUrl, '_blank');
+};
 </script>
-  
