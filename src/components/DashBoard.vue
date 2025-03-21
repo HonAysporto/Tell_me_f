@@ -1,80 +1,87 @@
 <template>
-    <div class="container py-5">
-      <div class="row">
-        <!-- Sidebar Section -->
-        <div class="col-md-3">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h4 class="text-center">User Dashboard</h4>
-              <hr />
-              <div class="text-center">
-                <button class="btn btn-outline-danger mb-3">Logout</button>
-              </div>
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <a href="#" class="text-decoration-none">View Messages</a>
-                </li>
-                <li class="list-group-item">
-                  <a href="#" class="text-decoration-none">Edit Profile</a>
-                </li>
-              </ul>
+  <div class="container py-5">
+    <div class="row">
+      <!-- Sidebar Section -->
+      <div class="col-md-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h4 class="text-center">User Dashboard</h4>
+            <hr />
+            <div class="text-center">
+              <button @click="logout" class="btn btn-outline-danger mb-3">Logout</button>
             </div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="#" class="text-decoration-none">View Messages</a>
+              </li>
+              <li class="list-group-item">
+                <a href="#" class="text-decoration-none">Edit Profile</a>
+              </li>
+            </ul>
           </div>
         </div>
-  
-        <!-- Main Content Section -->
-        <div class="col-md-9">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h3 class="card-title">Welcome, {{ user.username }}</h3>
-              <p>Your unique link: <span class="text-info">https://tell-me-seven.vercel.app/sendmsg/{{user.username}}</span></p>
-              <hr />
-              <h4>Your Messages</h4>
-              <div class="alert alert-info" v-if="user.messages.length === 0">No messages yet!</div>
-              <ul class="list-group">
-                <li class="list-group-item" v-for="message in user.messages" :key="message.id">
-                  {{ message.content }}
-                </li>
-              </ul>
+      </div>
+
+      <!-- Main Chat Section -->
+      <div class="col-md-9">
+        <div class="card shadow-sm chat-container">
+          <div class="card-body chat-box p-3" id="chatBox">
+            <h3 class="card-title text-center">Anonymous Messages</h3>
+            <div class="messages-container">
+              <div v-for="(message, index) in messages" :key="index" class="message-bubble">
+                <p class="message-text">{{ message.text }}</p>
+                <span class="message-time">{{ message.timestamp }}</span>
+              </div>
             </div>
+          </div>
+          <div class="card-footer text-center">
+            <input type="text" class="form-control" v-model="newMessage" placeholder="Type a message..." />
+            <button class="btn btn-primary mt-2" @click="sendMessage">Send</button>
           </div>
         </div>
       </div>
     </div>
-  </template>
-  
-  <style scoped>
-  /* Custom Styling */
-  .dashboard-header {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .card {
-    border-radius: 10px;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .list-group-item {
-    font-size: 16px;
-    color: #495057;
-  }
-  
-  .list-group-item:hover {
-    background-color: #f1f1f1;
-  }
-  
-  button {
-    transition: all 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #f8f9fa;
-  }
-  </style>
+  </div>
+</template>
+
+<style>
+.chat-container {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.chat-box {
+  flex-grow: 1;
+  overflow-y: auto;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+}
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.message-bubble {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 70%;
+  align-self: flex-start;
+}
+.message-text {
+  margin: 0;
+  font-size: 14px;
+}
+.message-time {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 5px;
+  display: block;
+  text-align: right;
+}
+</style>
 
 
 <script setup>
@@ -108,6 +115,11 @@ onMounted(() => {
     router.push('/signin');
   }
 });
+
+  const logout = () => {
+      localStorage.removeItem('authToken')
+      router.push('/signin')
+  }
 
 
 </script>
